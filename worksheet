@@ -1,0 +1,10 @@
+library(tidyverse)
+library(tidymodels)
+url<-"https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/processed.cleveland.data"
+download.file(url,"cleveland_heart_disease.csv")
+cleveland_data<-read_csv("cleveland_heart_disease.csv",col_names=FALSE)|>
+rename(age=X1,sex=X2,cp=X3,trestbps=X4,chol=X5,fbs=X6,restecg=X7,thalach=X8,exang=X9,oldpeak=X10,slope=X11,ca=X12,thal=X13,num=X14)|>
+    mutate(across(sex:cp,as_factor))|>
+    mutate(across(fbs:restecg,as_factor))|>
+    mutate(exang=as_factor(exang),slope=as_factor(slope),thal=as_factor(thal),num=as_factor(num))
+head(cleveland_data) 
